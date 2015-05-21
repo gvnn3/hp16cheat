@@ -1,0 +1,202 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+
+% If you're reading this, be prepared for confusion.  Making this was
+% a learning experience for me, and it shows.  Much of the placement
+% was hacked in; if you make it better, let me know...
+
+
+% 2008-04
+% Changed page margin code to use the geometry package. Also added code for
+% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
+% for the suggestions.
+
+% 2006-08
+% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
+
+
+% To Do:
+% \listoffigures \listoftables
+% \setcounter{secnumdepth}{0}
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+     \Large{\textbf{HP-16c Cheat Sheet}} \\
+\small{\texttt{https://github.com/gvnn3/hp16cheat}}
+\end{center}
+
+\section{Key to Symbols}
+\begin{tabular}{@{}ll@{}}
+\emph{DS} & Drops stack.\\
+\emph{LS} & Lifts stack.\\
+\emph{SU} & Stack unchanged.\\
+\end{tabular}
+
+
+\section{Clearning}
+\begin{tabular}{@{}ll@{}}
+\texttt{BSP} & Backspace. \\
+\texttt{CLx} & Clear X. \\
+\texttt{CLEAR PRGM} & Clear program memory.\\
+\texttt{CLEAR REG}  & Clears all registers. \\
+\texttt{CLEAR PREFIX}  & Clear any prefix entry.
+\end{tabular}
+
+\section{Data Entry}
+\begin{tabular}{@{}ll@{}}
+\texttt{ENTER} & Copy X into Y.\\
+\texttt{CHS} & Change sign.\\
+\texttt{EEX} & Enter Exponent (Floating point mode).\\
+\end{tabular}
+
+\section{Stack Manipulation}
+\begin{tabular}{@{}ll@{}}
+\texttt{X<>Y} & Exchange X and Y\\
+\texttt{R$\vee$R$\wedge$} & Roll Stack Down/Up\\
+\end{tabular}
+
+\section{Display Control}
+\begin{tabular}{@{}ll@{}}
+\texttt{HEX/DEC/OCT/BIN} & Change number base.\\
+\texttt{SHOW HEX/DEC/OCT/BIN} & Show X in another base.\\
+\texttt{SET COMPL 1s, 2s, UNSGN} & Set complement mode.\\
+\texttt{WSIZE} & Set word size 1..64 (use 0 for 64).\\
+\texttt{WINDOW} & 0..7 Display eight digit segm of X\\
+\texttt{< >} & Scroll left or right.\\
+\texttt{SF/CF N} & Set/Clear flag [0..5].\\
+\texttt{STATUS} & Show compl, wordsize and flags.\\
+\texttt{FLOAT N} & Choose decimals with 0..9\\
+\end{tabular}
+
+\section{Math}
+\begin{tabular}{@{}ll@{}}
+\texttt{+,-,$\times$,$\div$} & X $\leftarrow$ Y OP X, \emph{DS}\\
+\texttt{RMD} & X $\leftarrow$ Y MOD X, \emph{DS}\\
+\texttt{$\sqrt{x}$} & Square root of X, \emph{SU}\\
+\texttt{$1/\_{x}$} & Reciprocal of X, \emph{SU}\\
+\texttt{DBL$\times$,DBL$\div$,DBLR} & Math with doubles\\
+\texttt{ABS} & Absolute value of X.
+\end{tabular}
+
+\section{Bit Operations}
+\begin{tabular}{@{}ll@{}}
+\texttt{SL/SR} & Shift left/right \emph{0}\\
+\texttt{ASR} & Arithmetic shift right \emph{SGN}\\
+\texttt{RL/RR} & Rotate left/right preserving bits.\\
+\texttt{RLC/RRC} & Rotate through carry bit.\\
+\texttt{RLn/Rn/RLCn/RRCn} & Rotate Y, X bits \emph{DS}.\\
+\texttt{LR} & Left justfy X into Y, leaving bit count in X.\\
+\texttt{MASKL/MASKR} & Create left of right bit mask based on X.\\.
+\texttt{SB/CB} & Set/clear bit in Y based on X.\\
+\texttt{\#B} & X $\leftarrow$ sum bits in X \emph{SU}.\\
+\texttt{NOT|OR|AND|XOR} & X $\leftarrow$ X OP Y. \emph{DS}.
+\end{tabular}
+
+\section{Memory}
+\begin{tabular}{@{}ll@{}}
+\texttt{STO} & Store value in X into reg 0..F, I, (i).\\
+\texttt{RCL} & Recall value from 0..F, I, (i) into X.\emph{LS}\\
+\texttt{X<>I} & Exchange X and index register.\\
+\texttt{X<>(i)} & Exchange X and register indexed by I.\\
+\texttt{LSTx} & Recall previous X into X.\\
+\texttt{MEM} & Show memory status.\\
+\end{tabular}
+
+\section{Programming}
+\begin{tabular}{@{}ll@{}}
+\texttt{P/R} & Program or Run mode\\
+\texttt{R/S} & Run/Stop\\
+\texttt{LBL} & 0..F Set a program label\\
+\texttt{RTN} & Return from subroutine or exit program.\\
+\texttt{PSE} & Pause and show X.\\
+\texttt{GTO} & Goto \texttt{LABEL}.\\
+\texttt{GTO .nnn} & Goto line N.\\
+\texttt{GSB} & Goto a subroutine.\\
+\texttt{SST} & Single step forwards.\\
+\texttt{BST} & Single step backwards.\\
+\texttt{F?} & If flag \emph{unset}, skip an instruction.\\
+\texttt{B?} & If bit \emph{unset}, skip.\\
+\texttt{<,$\leq$,$\geq$,>,$\neq$,} & If \emph{false}, skip.\\
+\texttt{DSZ/ISZ} & Decrement/increment index, skip if 0.
+\end{tabular}
+
+\end{multicols}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
